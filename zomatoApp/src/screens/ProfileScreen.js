@@ -21,12 +21,14 @@ const ProfileScreen = () => {
   const [uploadImg, setUploadImg] = useState(false);
   const {imageUri, setImageUri} = useContext(ImageContext);
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
 
   //show username under profile image
   useEffect(() => {
     const user = auth().currentUser;
     if (user) {
       setEmail(user.email || 'no email found');
+      setUsername(user.displayName || 'No username found');
     }
   }, []);
 
@@ -66,6 +68,7 @@ const ProfileScreen = () => {
         )}
         {/* email */}
         <Text style={{color: 'red'}}>{email}</Text>
+        <Text style={{color: 'red'}}>{username}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.cameraBg}
