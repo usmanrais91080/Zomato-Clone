@@ -2,6 +2,7 @@ import {
   FlatList,
   SafeAreaView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -23,25 +24,28 @@ import CoffeeBeansCard from '../components/CoffeeBeansCard';
 import BeansData from '../data/BeansData';
 import {useNavigation} from '@react-navigation/native';
 import CustomIcons from '../components/CustomIcons';
+import {useDispatch} from 'react-redux';
+import {addToCart} from '../redux/CartSlice';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   return (
-    <ScrollView>
-      <SafeAreaView style={{flex: 1, backgroundColor: COLORS.primaryBlackHex}}>
-        {/* ************************ Header ************************* */}
+    <SafeAreaView style={{flex: 1, backgroundColor: COLORS.primaryBlackHex}}>
+      <StatusBar barStyle={'light-content'} />
+      {/* ************************ Header ************************* */}
 
-        <CustomHeader
-          LeftIcon={
-            <CustomIcons
-              name="menu"
-              size={15}
-              color={COLORS.primaryLightGreyHex}
-            />
-          }
-          RightIcon={<ProfilePic />}
-        />
-
+      <CustomHeader
+        LeftIcon={
+          <CustomIcons
+            name="menu"
+            size={15}
+            color={COLORS.primaryLightGreyHex}
+          />
+        }
+        RightIcon={<ProfilePic />}
+      />
+      <ScrollView>
         {/* ************************ Text ************************* */}
         <View style={{marginTop: 20, paddingHorizontal: 10}}>
           <Text style={styles.txt}>Find the best {'\n'} coffee for you</Text>
@@ -116,15 +120,17 @@ const HomeScreen = () => {
                     ingredients={item.ingredients}
                     specialIngradient={item.special_ingredient}
                     averageRating={item.average_rating}
-                    plusButton={() => {}}
+                    plusButton={() => {
+                      dispatch(addToCart(item));
+                    }}
                   />
                 </TouchableOpacity>
               );
             }}
           />
         </View>
-      </SafeAreaView>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

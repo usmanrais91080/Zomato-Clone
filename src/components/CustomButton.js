@@ -1,4 +1,10 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import {
   heightPercentageToDP as hp,
@@ -6,19 +12,23 @@ import {
 } from 'react-native-responsive-screen';
 import {COLORS} from '../theme/theme';
 
-const CustomButton = ({title, onPress}) => {
+const CustomButton = ({title, onPress, isloading}) => {
   return (
     <View>
       <TouchableOpacity style={styles.btnContaner} onPress={onPress}>
-        <Text
-          style={{
-            color: 'white',
-            fontWeight: '500',
-            fontSize: hp(1.9),
-            fontFamily: 'Poppins-Medium.ttf',
-          }}>
-          {title}
-        </Text>
+        {isloading ? (
+          <ActivityIndicator size={25} color={'white'} />
+        ) : (
+          <Text
+            style={{
+              color: 'white',
+              fontWeight: '500',
+              fontSize: hp(1.9),
+              fontFamily: 'Poppins-Medium.ttf',
+            }}>
+            {title}
+          </Text>
+        )}
       </TouchableOpacity>
     </View>
   );

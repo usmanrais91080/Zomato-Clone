@@ -39,7 +39,12 @@ const CoffeeBeansCard = ({
         end={{x: 1, y: 1}}
         colors={[COLORS.primaryBlackHex, COLORS.primaryDarkGreyHex]}
         style={styles.LinearGradientImgCard}>
-        <ImageBackground source={squarImg} style={styles.img}>
+        <ImageBackground
+          source={squarImg}
+          style={styles.img}
+          imageStyle={{
+            borderRadius: 10,
+          }}>
           {/* ************************ STAR ************************* */}
           <View style={styles.starIconBg}>
             <CustomIcons

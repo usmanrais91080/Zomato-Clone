@@ -5,15 +5,20 @@ const cartSlice = createSlice({
   initialState: [],
   reducers: {
     addToCart: (state, action) => {
-      const existingProduct = state.find(val => val.id == action.payload.id);
-      if (existingProduct != 1) {
-        state[existingProduct].qty++;
+      const existingProductIndex = state.findIndex(
+        val => val.id === action.payload.id,
+      );
+
+      if (existingProductIndex !== -1) {
+        // If product already exists in the cart, increase its quantity
+        state[existingProductIndex].qty++;
       } else {
+        // If product does not exist in the cart, add it
         state.push({...action.payload, qty: 1});
       }
     },
     removeFromCart: (state, action) => {
-      const newList = state.filter(val => val.id != action.payload.id);
+      const newList = state.filter(val => val.name !== action.payload.name);
       return newList;
     },
   },

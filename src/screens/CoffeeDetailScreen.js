@@ -11,11 +11,15 @@ import CoffeeDetailCard from '../components/CoffeeDetailCard';
 import CoffeSizes from '../components/CoffeSizes';
 import CustomButton from '../components/CustomButton';
 import CoffeeData from '../data/CoffeeData';
+import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
+import {addToCart} from '../redux/CartSlice';
 
-const CoffeeDetailScreen = ({route, navigation}) => {
+const CoffeeDetailScreen = ({route}) => {
+  const navigation = useNavigation();
   const {item} = route.params;
   const [selectedSize, setSelectedSize] = useState('S'); // Initialize with a default size, e.g., 'M'
-
+  const dispatch = useDispatch();
   // Find the selected size's price from CoffeeData
   const getPriceForSelectedSize = () => {
     const coffeeItem = CoffeeData.find(coffee => coffee.id === item.id);
@@ -41,7 +45,7 @@ const CoffeeDetailScreen = ({route, navigation}) => {
               name="left"
               size={15}
               color={COLORS.primaryLightGreyHex}
-              onPress={() => navigation.goBack()}
+              onPress={() => navigation.navigate('Home')}
             />
           }
           RightIcon={
@@ -82,7 +86,10 @@ const CoffeeDetailScreen = ({route, navigation}) => {
         </View>
         <CustomButton
           title={'Add to Cart'}
-          onPress={() => navigation.navigate('Cart')}
+          onPress={() => {
+            dispatch(addToCart(item));
+            navigation.navigate('Cart');
+          }}
         />
       </View>
     </View>

@@ -5,7 +5,7 @@ import OrderHistoryScreen from '../screens/OrderHistoryScreen';
 import FavouriteScreen from '../screens/FavouriteScreen';
 import CustomIcons from '../components/CustomIcons';
 import {COLORS} from '../theme/theme';
-import {StyleSheet, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 import {BlurView} from '@react-native-community/blur';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
@@ -20,7 +20,10 @@ export const MyBottomTab = () => {
           height: 5,
           width: 5,
           backgroundColor: focused ? COLORS.primaryOrangeHex : undefined,
-          borderRadius: 5,
+          borderRadius: Platform.select({
+            ios: 5,
+            android: 10,
+          }),
         }}
       />
     );
